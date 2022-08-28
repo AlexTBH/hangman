@@ -39,7 +39,9 @@ class Game
 
     def wrong_guess(word)
         puts "The letter you chose is incorrect!"
-        @wrong_words.push(word)
+        if !@wrong_words.include?(word)
+            @wrong_words.push(word)
+        end
         @lives -= 1
         puts "You now have #{@lives} left"
     end
