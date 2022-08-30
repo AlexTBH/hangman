@@ -4,7 +4,7 @@ class Game
         @secret_word = ""
         @lives = 10
         @words_to_display = []
-        @wrong_words = []
+        @wrong_letters = []
     end
 
     def start_game
@@ -15,12 +15,12 @@ class Game
         while @lives > 0
             guess_letter
             guess_word
-        end
-        #guess word
+            break if correct_word_guess?
+        end        
     end
 
     def guess_letter
-        puts "Current wrong words are: #{@wrong_words.join(" ")}"
+        puts "Current wrong letters are: #{@wrong_letters.join(" ")}"
         puts "Type a letter you believe the secret word contains"
         player_guess = gets.chomp.downcase 
         puts "\n"
@@ -37,16 +37,25 @@ class Game
         puts "\n"
     end
 
-    def wrong_guess(word)
+    def wrong_guess(letter)
         puts "The letter you chose is incorrect!"
-        if !@wrong_words.include?(word)
-            @wrong_words.push(word)
+        if !@wrong_letters.include?(letter)
+            @wrong_letters.push(letter)
         end
         @lives -= 1
-        puts "You now have #{@lives} left"
+        puts "You now have #{@lives} lifes left"
     end
 
     def guess_word
+        puts "Type Y if you would like to guess the secret word, N if you do not want to guess the word"
+        input = gets.chomp.downcase
+        if (input == "y")
+            input2 = gets.chomp.downcase
+            correct_word_guess?(input2)
+        end
+    end
+
+    def correct_word_guess?(guess_input = nil)
         
     end
 
@@ -63,7 +72,6 @@ class Game
         @secret_word.chars.each do |word|
             @words_to_display.push("_")
         end
-        @words_to_display.pop()
     end
 
     def create_file
@@ -73,8 +81,8 @@ class Game
     def random_word
         contents = File.readlines('google-10000-english-no-swears.txt')
 
-        while !@secret_word.length.between?(6,13)
-            @secret_word = contents.sample
+        while !@secret_word.length.between?(5,12)
+            @secret_word = contents.sample.chomp
         end
 
         puts @secret_word
