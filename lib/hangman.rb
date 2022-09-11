@@ -5,6 +5,7 @@ class Game
         @lives = 10
         @words_to_display = []
         @wrong_letters = []
+        @game_over = false
     end
 
     def start_game
@@ -15,8 +16,27 @@ class Game
         while @lives > 0
             guess_letter
             guess_word
-            break if game_over?
+            break if @game_over == true
         end        
+    end
+
+
+    def guess_word
+        puts "Type Y if you would like to guess the secret word, N if you do not want to guess the word"
+        input = gets.chomp.downcase
+        if (input == "y")
+            input2 = gets.chomp.downcase
+            correct_word_guess?(input2)
+        end
+    end
+
+    def correct_word_guess?(guess_input = nil)
+        @secret_word == guess_input ? @game_over = true : wrong_word_guess
+    end
+
+    def wrong_word_guess
+        @lives -= 3
+        puts "Wrong word, you now have #{@lives} lives left."
     end
 
     def guess_letter
@@ -45,27 +65,6 @@ class Game
         @lives -= 1
         puts "You now have #{@lives} lifes left"
     end
-
-    #TODO START
-
-    def guess_word
-        puts "Type Y if you would like to guess the secret word, N if you do not want to guess the word"
-        input = gets.chomp.downcase
-        if (input == "y")
-            input2 = gets.chomp.downcase
-            correct_word_guess?(input2)
-        end
-    end
-
-    def correct_word_guess?(guess_input = nil)
-
-    end
-
-    def game_over?
-        
-    end
-
-    #TODO END
 
     def display_words(string)
         @secret_word.chars.each_with_index do |word, index|
