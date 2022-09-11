@@ -12,7 +12,7 @@ class Game
         #load file
         random_word
         display_word_settings
-        #save game
+        #save_game
         # -- Check later if there is a sexier way to write this
         while @lives > 0
             guess_letter
@@ -61,11 +61,16 @@ class Game
 
     def wrong_guess(letter)
         puts "The letter you chose is incorrect!"
+        return letter_already_guessed if @wrong_letters.include?(letter)
         if !@wrong_letters.include?(letter)
             @wrong_letters.push(letter)
         end
         @lives -= 1
         puts "You now have #{@lives} lifes left"
+    end
+
+    def letter_already_guessed
+        puts "You have guessed this letter before"
     end
 
     def display_words(string)
@@ -83,9 +88,11 @@ class Game
         end
     end
 
-    def create_file
+    #-- TODO --
+    def save_game
         
     end
+    #-- TODO --
 
     def random_word
         contents = File.readlines('google-10000-english-no-swears.txt')
