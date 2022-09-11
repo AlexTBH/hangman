@@ -13,11 +13,13 @@ class Game
         random_word
         display_word_settings
         #save game
+        # -- Check later if there is a sexier way to write this
         while @lives > 0
             guess_letter
-            guess_word
-            break if @game_over == true
-        end        
+            break if @game_over == true || @lives == 0
+            guess_word 
+        end
+        # --
     end
 
 
