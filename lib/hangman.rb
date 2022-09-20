@@ -1,3 +1,5 @@
+require 'yaml'
+
 class Game
 
     def initialize
@@ -90,7 +92,9 @@ class Game
 
     #-- TODO --
     def save_game
-        
+        save_file = File.open("sample.yaml", "w")
+        save_file.puts "Hello file!"
+        save_file.close
     end
     #-- TODO --
 
@@ -106,4 +110,4 @@ class Game
 
 end
 
-x = Game.new.start_game
+x = Game.new.save_game
