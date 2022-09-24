@@ -93,14 +93,13 @@ class Game
     #-- TODO --
     def save_game
         save_file = File.open("hangman.yaml", "w")
-        save_file.puts "Hello file!"
+        YAML.dump( [instance_variables], save_file)
         save_file.close
+
+        
     end
     #-- TODO --
 
-    def test
-        puts instance_variables
-    end
 
     def random_word
         contents = File.readlines('google-10000-english-no-swears.txt')
