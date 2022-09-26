@@ -95,8 +95,7 @@ class Game
     #-- TODO --
     #Not capturing the variables keys right now
     def save_game
-        File.open("hangman.yaml", "w"){ |file| (file.write(instance_variables.to_yaml))}
-        #YAML.dump( [instance_variables], File.open("hangman.yaml", "w"))
+        File.open("hangman.yaml", "w"){ |file| (file.write(self.to_yaml))}
     end
     #-- TODO --
 
