@@ -14,7 +14,7 @@ class Game
         #load file
         random_word
         display_word_settings
-        #save_game
+        save_game
         # -- Check later if there is a sexier way to write this
         while @lives > 0
             guess_letter
@@ -33,10 +33,12 @@ class Game
             correct_word_guess?(input2)
         end
     end
+    #TO DO
 
     def correct_word_guess?(guess_input = nil)
         @secret_word == guess_input ? @game_over = true : wrong_word_guess
     end
+    #TO DO
 
     def wrong_word_guess
         @lives -= 3
@@ -91,12 +93,10 @@ class Game
     end
 
     #-- TODO --
+    #Not capturing the variables keys right now
     def save_game
-        save_file = File.open("hangman.yaml", "w")
-        YAML.dump( [instance_variables], save_file)
-        save_file.close
-
-        
+        File.open("hangman.yaml", "w"){ |file| (file.write(instance_variables.to_yaml))}
+        #YAML.dump( [instance_variables], File.open("hangman.yaml", "w"))
     end
     #-- TODO --
 
@@ -113,5 +113,5 @@ class Game
 
 end
 
-x = Game.new.save_game
+x = Game.new.start_game
 

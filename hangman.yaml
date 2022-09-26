@@ -1,6 +1,6 @@
 ---
-- - :@secret_word
-  - :@lives
-  - :@words_to_display
-  - :@wrong_letters
-  - :@game_over
+- :@secret_word
+- :@lives
+- :@words_to_display
+- :@wrong_letters
+- :@game_over
