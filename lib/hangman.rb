@@ -7,37 +7,41 @@ class Game
         @lives = 10
         @words_to_display = []
         @wrong_letters = []
-        @game_over = false
     end
 
     def start_game
         #load file
         random_word
         display_word_settings
-        save_game
         # -- Check later if there is a sexier way to write this
         while @lives > 0
             guess_letter
-            break if @game_over == true || @lives == 0
-            guess_word 
+            break if guess_word
         end
+        test_game
         # --
     end
 
+    def test_game
+        puts "end"
+    end
 
     def guess_word
         puts "Type Y if you would like to guess the secret word, N if you do not want to guess the word"
         input = gets.chomp.downcase
         if (input == "y")
             input2 = gets.chomp.downcase
-            correct_word_guess?(input2)
+            return correct_word_guess?(input2)
         end
     end
+
     #TO DO
 
     def correct_word_guess?(guess_input = nil)
-        @secret_word == guess_input ? @game_over = true : wrong_word_guess
+        @secret_word == guess_input
+        #Return something if the wrong word is guessed
     end
+
     #TO DO
 
     def wrong_word_guess

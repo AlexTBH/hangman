@@ -1,5 +1,5 @@
 --- !ruby/object:Game
-secret_word: learners
+secret_word: barbie
 lives: 10
 words_to_display:
 - _
@@ -8,7 +8,4 @@ words_to_display:
 - _
 - _
 - _
-- _
-- _
 wrong_letters: []
-game_over: false
