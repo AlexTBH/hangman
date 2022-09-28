@@ -10,24 +10,18 @@ class Game
     end
 
     def start_game
-        #load file
+        #load_game
         random_word
         display_word_settings
-        # -- Check later if there is a sexier way to write this
         while @lives > 0
             guess_letter
+            save_game
             break if guess_word
         end
-        test_game
-        # --
-    end
-
-    def test_game
-        puts "end"
     end
 
     def guess_word
-        puts "Type Y if you would like to guess the secret word, N if you do not want to guess the word"
+        puts "Type Y if you would like to guess the secret word, anything else for no"
         input = gets.chomp.downcase
         if (input == "y")
             input2 = gets.chomp.downcase
@@ -35,16 +29,8 @@ class Game
         end
     end
 
-    #TO DO
-
     def correct_word_guess?(guess_input = nil)
-        @secret_word == guess_input
-        #Return something if the wrong word is guessed
-    end
-
-    #TO DO
-
-    def wrong_word_guess
+        return if @secret_word == guess_input
         @lives -= 3
         puts "Wrong word, you now have #{@lives} lives left."
     end
@@ -96,13 +82,19 @@ class Game
         end
     end
 
-    #-- TODO --
-    #Not capturing the variables keys right now
     def save_game
-        File.open("hangman.yaml", "w"){ |file| (file.write(self.to_yaml))}
+        puts "Do you want to save the game? Type Y for yes, type anything else for no."
+        input = gets.chomp.downcase
+        if input == "y"
+            File.open("hangman.yaml", "w"){ |file| (file.write(self.to_yaml))}
+        end
     end
-    #-- TODO --
 
+    #TO DO
+    def load_game
+    
+    end
+    #TO DO
 
     def random_word
         contents = File.readlines('google-10000-english-no-swears.txt')

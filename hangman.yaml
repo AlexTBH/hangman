@@ -1,11 +1,11 @@
 --- !ruby/object:Game
-secret_word: barbie
+secret_word: donald
 lives: 10
 words_to_display:
+- d
 - _
 - _
+- a
 - _
-- _
-- _
-- _
+- d
 wrong_letters: []
