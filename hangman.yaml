@@ -1,11 +1,5 @@
 --- !ruby/object:Game
-secret_word: donald
+secret_word: ''
 lives: 10
-words_to_display:
-- d
-- _
-- _
-- a
-- _
-- d
+words_to_display: []
 wrong_letters: []

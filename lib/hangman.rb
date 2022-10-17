@@ -10,7 +10,7 @@ class Game
     end
 
     def start_game
-        #load_game
+        load_game
         random_word
         display_word_settings
         while @lives > 0
@@ -86,13 +86,22 @@ class Game
         puts "Do you want to save the game? Type Y for yes, type anything else for no."
         input = gets.chomp.downcase
         if input == "y"
+            p = self.to_yaml
+            puts p
             File.open("hangman.yaml", "w"){ |file| (file.write(self.to_yaml))}
         end
     end
 
     #TO DO
     def load_game
-    
+
+        puts "Type Y if you wish to load a saved game"
+        input = gets.chomp
+        return if input.downcase != "y"
+
+        self.from_yaml(File.open("hangman.yaml", "r"))
+
+        puts @secret_word
     end
     #TO DO
 
@@ -106,7 +115,11 @@ class Game
         puts @secret_word
     end
 
+
+
+    end
 end
 
-x = Game.new.start_game
+x = Game.new.load_game
+
 
