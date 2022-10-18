@@ -1,7 +1,8 @@
 require 'yaml'
+require_relative 'serialize'
 
 class Game
-
+include BasicSerializable
     def initialize
         @secret_word = ""
         @lives = 10
@@ -82,26 +83,23 @@ class Game
         end
     end
 
+    #TO DO, dont use "to_yaml", use "YAML.dump"
     def save_game
         puts "Do you want to save the game? Type Y for yes, type anything else for no."
         input = gets.chomp.downcase
         if input == "y"
-            p = self.to_yaml
-            puts p
-            File.open("hangman.yaml", "w"){ |file| (file.write(self.to_yaml))}
+          
         end
     end
 
-    #TO DO
+    #TO DO_2
     def load_game
 
         puts "Type Y if you wish to load a saved game"
         input = gets.chomp
         return if input.downcase != "y"
+        serialize
 
-        self.from_yaml(File.open("hangman.yaml", "r"))
-
-        puts @secret_word
     end
     #TO DO
 
@@ -115,9 +113,6 @@ class Game
         puts @secret_word
     end
 
-
-
-    end
 end
 
 x = Game.new.load_game
