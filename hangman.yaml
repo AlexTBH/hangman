@@ -1,5 +1,5 @@
---- !ruby/object:Game
-secret_word: ''
-lives: 10
-words_to_display: []
-wrong_letters: []
+---
+:@secret_word: ''
+:@lives: 220
+:@words_to_display: []
+:@wrong_letters: []

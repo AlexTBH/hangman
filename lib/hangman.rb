@@ -1,8 +1,9 @@
 require 'yaml'
-require_relative 'serialize'
+require_relative 'Yaml_module'
 
 class Game
 include BasicSerializable
+
     def initialize
         @secret_word = ""
         @lives = 10
@@ -10,6 +11,9 @@ include BasicSerializable
         @wrong_letters = []
     end
 
+    #TO DO
+    #Check the order of the methods
+    #Make a function that deletes the save filed if the game has ended
     def start_game
         load_game
         random_word
@@ -20,6 +24,7 @@ include BasicSerializable
             break if guess_word
         end
     end
+    #TO DO
 
     def guess_word
         puts "Type Y if you would like to guess the secret word, anything else for no"
@@ -83,26 +88,24 @@ include BasicSerializable
         end
     end
 
-    #TO DO, dont use "to_yaml", use "YAML.dump"
     def save_game
         puts "Do you want to save the game? Type Y for yes, type anything else for no."
         input = gets.chomp.downcase
         if input == "y"
-          
+          serialize 
         end
     end
 
-    #TO DO_2
+    #TO DO
+    #Make sure load_game function wont runt if there is no game saved
     def load_game
-
         puts "Type Y if you wish to load a saved game"
         input = gets.chomp
         return if input.downcase != "y"
-        serialize
-
+        unserialize
     end
     #TO DO
-
+    
     def random_word
         contents = File.readlines('google-10000-english-no-swears.txt')
 

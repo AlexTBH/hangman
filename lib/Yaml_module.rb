@@ -10,10 +10,14 @@ module BasicSerializable
             obj[var] = instance_variable_get(var)
         end
 
-        @@serializer.dump obj
+        File.open("hangman.yaml", "w") { |file| file.write(@@serializer.dump(obj)) }
+
     end
 
     def unserialize
-        
+        obj = YAML.load_file("hangman.yaml")
+        obj.keys.each do |key|
+            instance_variable_set(key, obj[key])
+        end
     end
 end
