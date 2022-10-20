@@ -9,6 +9,7 @@ include BasicSerializable
         @lives = 10
         @words_to_display = []
         @wrong_letters = []
+        @guessed_letters = []
     end
 
     #TO DO
@@ -45,6 +46,7 @@ include BasicSerializable
         puts "Current wrong letters are: #{@wrong_letters.join(" ")}"
         puts "Type a letter you believe the secret word contains"
         player_guess = gets.chomp.downcase 
+        return letter_already_guessed if @guessed_letters.include?(player_guess)
         puts "\n"
         correct_guess?(player_guess)
     end
@@ -56,6 +58,7 @@ include BasicSerializable
     def right_guess(word)
         puts "The letter you chose is correct!"
         display_words(word)
+        @guessed_letters.push(word)
         puts "\n"
     end
 
@@ -71,6 +74,8 @@ include BasicSerializable
 
     def letter_already_guessed
         puts "You have guessed this letter before"
+        puts "\n"
+        guess_letter
     end
 
     def display_words(string)
@@ -96,15 +101,13 @@ include BasicSerializable
         end
     end
 
-    #TO DO
-    #Make sure load_game function wont runt if there is no game saved
     def load_game
+        return if !File.exists?("hangman.yaml")
         puts "Type Y if you wish to load a saved game"
         input = gets.chomp
         return if input.downcase != "y"
         unserialize
     end
-    #TO DO
     
     def random_word
         contents = File.readlines('google-10000-english-no-swears.txt')
@@ -118,6 +121,6 @@ include BasicSerializable
 
 end
 
-x = Game.new.load_game
+x = Game.new.start_game
 
 
