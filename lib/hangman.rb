@@ -10,6 +10,7 @@ include BasicSerializable
         @words_to_display = []
         @wrong_letters = []
         @guessed_letters = []
+        @delete_game = false
     end
 
     #TO DO
@@ -24,9 +25,9 @@ include BasicSerializable
             save_game
             break if guess_word
         end
+        delete_saved_file
     end
-    #TO DO
-
+    
     def guess_word
         puts "Type Y if you would like to guess the secret word, anything else for no"
         input = gets.chomp.downcase
@@ -37,11 +38,11 @@ include BasicSerializable
     end
 
     def correct_word_guess?(guess_input = nil)
-        return if @secret_word == guess_input
+        return true if @secret_word == guess_input
         @lives -= 3
         puts "Wrong word, you now have #{@lives} lives left."
     end
-
+    
     def guess_letter
         puts "Current wrong letters are: #{@wrong_letters.join(" ")}"
         puts "Type a letter you believe the secret word contains"
@@ -96,9 +97,9 @@ include BasicSerializable
     def save_game
         puts "Do you want to save the game? Type Y for yes, type anything else for no."
         input = gets.chomp.downcase
-        if input == "y"
-          serialize 
-        end
+        return if input != "y"
+        serialize
+        @delete_game = false
     end
 
     def load_game
@@ -107,6 +108,11 @@ include BasicSerializable
         input = gets.chomp
         return if input.downcase != "y"
         unserialize
+        @delete_game = true
+    end
+
+    def delete_saved_file
+        File.delete("hangman.yaml") if @delete_game == true
     end
     
     def random_word

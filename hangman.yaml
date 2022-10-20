@@ -1,0 +1,19 @@
+---
+:@secret_word: translated
+:@lives: 10
+:@words_to_display:
+- t
+- _
+- a
+- _
+- _
+- _
+- a
+- t
+- _
+- _
+:@wrong_letters: []
+:@guessed_letters:
+- t
+- a
+:@delete_game: false
